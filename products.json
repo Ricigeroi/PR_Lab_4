@@ -1,0 +1,20 @@
+[
+  {
+    "make" : "Toyota",
+    "model" : "Prius",
+    "year" : 2012,
+    "description" : "Не бита, не крашена, в такси не была"
+  },
+  {
+    "make" : "Mercedes",
+    "model" : "W124",
+    "year" : 1992,
+    "description" : "Угловатый гробик на колесах"
+  },
+  {
+    "make" : "Dacia",
+    "model" : "Logan",
+    "year" : 2009,
+    "description" : "Запах газа ощущается отсюда, я не говорю что в салоне.."
+  }
+]
