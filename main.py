@@ -2,9 +2,9 @@ import json
 import socket
 import signal
 import sys
-from time import sleep
 import threading
 import re
+
 
 # Function to handle Ctrl+C and other signals
 def signal_handler(sig, frame):
@@ -30,10 +30,49 @@ def handle_request(client_socket):
 
     # Define a simple routing mechanism
     if path == '/':
-        sleep(1)
-        response_content = 'Hello, World!'
+        response_content = """
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Contact information</title>
+                </head>
+                <body>
+                    <div style="display: flex; height: 500px; align-items: center; justify-content: center;">
+                        <div align=center>
+                            <font>
+                                Hello, World!
+                                <br>
+                                Landing page.
+                            </font>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        """
     elif path == '/about':
-        response_content = 'This is the About page.'
+        response_content = """
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Contact information</title>
+                </head>
+                <body>
+                    <div style="display: flex; height: 500px; align-items: center; justify-content: center;">
+                        <div align=center>
+                            <font>
+                                PR Laboratory #4
+                                <br>
+                                About page.
+                            </font>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        """
     elif path == '/contacts':
         response_content = """
             <!DOCTYPE html>
@@ -46,11 +85,13 @@ def handle_request(client_socket):
                 <body>
                     <div style="display: flex; height: 500px; align-items: center; justify-content: center;">
                         <div align=center>
-                            FAF-213
-                            <br>
-                            Bardier Andrei
-                            <br>
-                            andrei.bardier@isa.utm.md
+                            <font>
+                                FAF-213
+                                <br>
+                                Bardier Andrei
+                                <br>
+                                andrei.bardier@isa.utm.md
+                            </font>
                         </div>
                     </div>
                 </body>
@@ -81,12 +122,11 @@ def handle_request(client_socket):
                 </body>
             </html>
         """
-    elif re.match(r'^/product/(\d+)$', path) and int(path.split('/')[-1]) > 0 and int(path.split('/')[-1]) <= len(
-            products):
+    elif re.match(r'^/product/(\d+)$', path) and 0 < int(path.split('/')[-1]) <= len(products):
         product_info = ''
 
-        for value in products[int(path.split('/')[-1]) - 1].values():
-            product_info += str(value) + '<br>'
+        for key, value in products[int(path.split('/')[-1]) - 1].items():
+            product_info += str(key) + ': ' + str(value) + '<br>'
         response_content = f"""
             <html lang="en">
                 <head>
@@ -117,7 +157,7 @@ def handle_request(client_socket):
                     <div style="display: flex; height: 500px; align-items: center; justify-content: center;">
                         <div align=center>
                             <font color='red' size=20px>
-                                Eror 404
+                                Error 404
                             </font>
                             <br>
                             Not found
